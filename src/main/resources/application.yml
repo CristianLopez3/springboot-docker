@@ -1,0 +1,10 @@
+logging:
+  level:
+    io:
+      netty: error
+  reactor:
+    netty:
+      http: trace
+    guru:
+      springframework:
+        sfgrestbrewery: debug

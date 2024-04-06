@@ -1,12 +1,28 @@
-# SFG Beer Works - RESTful Brewery Service
+# Spring Boot Docker
+In this repository you can find an example of how to build docker images for 
+java spring boot, first at all you need the next things:
+* Java JDK
+* Docker Engine 
+* Maven (gradle si lo estas usando aunque las configuraciones ya serian diferentes)
 
-This project is to support learning about Restful APIs. 
 
-You can access the API documentation [here](https://sfg-beer-works.github.io/brewery-api/#tag/Beer-Service) 
+### Basic docker image
 
-## Connect with Spring Framework Guru
-* Spring Framework Guru [Blog](https://springframework.guru/)
-* Subscribe to Spring Framework Guru on [YouTube](https://www.youtube.com/channel/UCrXb8NaMPQCQkT8yMP_hSkw)
-* Like Spring Framework Guru on [Facebook](https://www.facebook.com/springframeworkguru/)
-* Follow Spring Framework Guru on [Twitter](https://twitter.com/spring_guru)
-* Connect with John Thompson on [LinkedIn](http://www.linkedin.com/in/springguru)
+```dockerfile
+FROM openjdk:17-jdk-slim
+ENV JAVA_OPTS " -Xms512m -Xmx512m -Djava.awt.headless=true -Djava.security.egd=file:/dev/./urandom"
+WORKDIR application
+COPY ../../../../target/kbe-rest-brewery-0.0.1-SNAPSHOT.jar ./
+ENTRYPOINT ["java", "-jar", "kbe-rest-brewery-0.0.1-SNAPSHOT.jar"]
+```
+
+after this build the image in your cli
+```shell
+docker build -f ./src/main/java/dockerBase/Dockerfile -t kbe-rest .
+docker run -p 8080:8080 kbe-rest 
+```
+if you wanna see if the application is running you can use the next command
+```shell
+docker ps # to see the port
+curl http://localhost:8080/api/v1/beer # use your navigator or some rest client
+```
