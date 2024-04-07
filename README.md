@@ -26,3 +26,32 @@ if you wanna see if the application is running you can use the next command
 docker ps # to see the port
 curl http://localhost:8080/api/v1/beer # use your navigator or some rest client
 ```
+
+
+## Layers
+Layers help us to prepare multi staging images in order to prepare for production.
+```xml
+<build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <!-- MAVEN LAYERS FOR DOCKER FILES -->
+                    <layers>
+                        <enabled>true</enabled>
+                        <includeLayerTools>true</includeLayerTools>
+                    </layers>
+                    <!-- MAVEN LAYERS FOR DOCKER FILES -->
+                    <excludes>
+                        <exclude>
+                            <groupId>org.projectlombok</groupId>
+                            <artifactId>lombok</artifactId>
+                        </exclude>
+                    </excludes>
+                </configuration>
+            </plugin>
+        </plugins>
+</build>
+```
+
